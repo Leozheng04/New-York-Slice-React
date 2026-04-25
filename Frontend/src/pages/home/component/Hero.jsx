@@ -9,15 +9,16 @@ const Hero = () => {
         }}
       >
         
+
         <div className="max-w-[620px]">
-          <h1 className="font-['Anton'] text-[clamp(3rem,7vw,5.5rem)] leading-[1] text-white">
+          <h1 className="mb-4 font-['Anton'] text-[clamp(3rem,7vw,5.5rem)] leading-[1rem] text-white">
             NEW YORK SLICE
           </h1>
-  
-          <h2 className="mt-4 mb-4 font-['Anton'] text-[clamp(1.5rem,3vw,2.4rem)] text-[#E10600]">
+
+          <h2 className="mb-4 font-['Anton'] text-[clamp(1.5rem,3vw,2.4rem)] font-normal text-[#E10600]">
             Hot, Fresh, and Delicious
           </h2>
-  
+
           <p className="mb-8 max-w-[540px] text-[1.1rem] leading-[1.8] text-[#CCCCCC]">
             The perfect slice for sharing with friends and late night cravings.
           </p>
