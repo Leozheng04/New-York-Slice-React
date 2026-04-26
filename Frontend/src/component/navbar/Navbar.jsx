@@ -90,7 +90,7 @@ const Navbar = () => {
           </li>
 
           <li className="hidden lg:block">
-            <a href="#about" className={linkStyle}>
+            <a href="/#about" className={linkStyle}>
               About
             </a>
           </li>

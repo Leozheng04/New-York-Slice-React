@@ -8,7 +8,7 @@ function Contact(){
                 
                 <div>
                     <form className="flex flex-col">
-                    <h1 className="mb-5 font-anton text-white text-4xl">
+                    <h1 className="mb-5 font-['anton'] text-white text-4xl">
                         Contact Us
                     </h1>
 
@@ -42,7 +42,7 @@ function Contact(){
                 </div>
 
                 <div>
-                    <h1 className="mb-5 font-anton text-white text-4xl">
+                    <h1 className="mb-5 font-['anton'] text-white text-4xl">
                     Locate Us
                     </h1>
 
