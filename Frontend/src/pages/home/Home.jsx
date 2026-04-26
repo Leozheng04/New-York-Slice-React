@@ -1,6 +1,7 @@
 import Navbar from "../../component/navbar/Navbar";
 import Hero from "./component/Hero";
 import Gallery from "./component/Gallery";
+import Footer from "./component/Footer";
 function Home(){
     return(
         <>
@@ -44,6 +45,8 @@ function Home(){
 
                     </div>
                 </section>
+                <Footer />
+                
             </main>
         </>
     )
