@@ -140,18 +140,20 @@ const Navbar = () => {
 
           <li className="lg:hidden">
             <div className="flex items-center gap-4">
-              <Link
-                to="/order?cart=1"
-                aria-label="Order / cart"
-                className="relative text-3xl text-white"
-              >
-                <FiShoppingCart />
-                {cartQty > 0 && (
-                  <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-xs leading-none text-white">
-                    {cartQty}
-                  </span>
-                )}
-              </Link>
+              {isActivePath("/order") && (
+                <Link
+                  to="/order?cart=1"
+                  aria-label="Order / cart"
+                  className="relative text-3xl text-white"
+                >
+                  <FiShoppingCart />
+                  {cartQty > 0 && (
+                    <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-xs leading-none text-white">
+                      {cartQty}
+                    </span>
+                  )}
+                </Link>
+              )}
 
               <button onClick={() => setShowSidebar(true)} className="text-3xl text-white" aria-label="Open menu">
                 ☰
