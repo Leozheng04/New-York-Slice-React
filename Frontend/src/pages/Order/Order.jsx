@@ -144,8 +144,8 @@ function Order() {
         </div>
 
         <aside
-          className={`fixed bottom-0 top-[100px] z-[999] grid w-[400px] grid-rows-[70px_1fr_50px_70px] bg-[#111111] text-[#CCCCCC] transition-all duration-300 ${
-            cartOpen ? "right-0" : "-right-[400px]"
+          className={`fixed bottom-0 top-[100px] z-[999] grid w-full grid-rows-[70px_1fr_50px_70px] bg-[#111111] text-[#CCCCCC] transition-all duration-300 sm:w-[400px] ${
+            cartOpen ? "right-0" : "-right-full sm:-right-[400px]"
           }`}
         >
           <h1 className="p-5 text-2xl font-bold">Shopping Cart</h1>
@@ -157,15 +157,26 @@ function Order() {
               return (
                 <div
                   key={item.product_id}
-                  className="grid grid-cols-[70px_150px_50px_1fr] items-center gap-2 bg-[#1A1A1A] text-center even:bg-white/10"
+                  className="grid grid-cols-[56px_1fr_auto] items-center gap-3 bg-[#1A1A1A] px-3 py-2 even:bg-white/10 sm:grid-cols-[70px_150px_70px_1fr] sm:gap-2 sm:px-0 sm:py-0 sm:text-center"
                 >
-                  <img src={product.image} alt={product.name} className="w-full" />
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="h-12 w-12 object-contain sm:h-auto sm:w-full"
+                  />
 
-                  <div>{product.name}</div>
+                  <div className="min-w-0 text-left sm:text-center">
+                    <div className="truncate">{product.name}</div>
+                    <div className="text-sm text-white/70 sm:hidden">
+                      ${(product.price * item.quantity).toFixed(2)}
+                    </div>
+                  </div>
 
-                  <div>${(product.price * item.quantity).toFixed(2)}</div>
+                  <div className="hidden sm:block">
+                    ${(product.price * item.quantity).toFixed(2)}
+                  </div>
 
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center justify-end gap-1 sm:justify-start">
                     <button
                       onClick={() => changeQuantity(product.id, "minus")}
                       className="flex h-[25px] w-[25px] items-center justify-center rounded-full bg-[#eee] text-xs font-bold text-[#333]"
