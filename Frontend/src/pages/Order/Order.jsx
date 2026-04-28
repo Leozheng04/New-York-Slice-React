@@ -7,7 +7,7 @@ import cheesePizza from "./images/MenuItem/Cheese_Pizza.webp";
 import pepperoniPizza from "./images/MenuItem/Pepperoni_Pizza.webp";
 import bbqPizza from "./images/MenuItem/BBQ_Chicken_Pizza.png";
 import soda from "./images/MenuItem/Soda.png";
-import lemonade from "./images/MenuItem/lemonade.png";
+import lemonade from "./images/MenuItem/Lemonade.png";
 import iceTea from "./images/MenuItem/Ice_Tea.png";
 import chicken from "./images/MenuItem/Chicken_Sandwich.png";
 import sausage from "./images/MenuItem/Sausage_Sandwich.png";
