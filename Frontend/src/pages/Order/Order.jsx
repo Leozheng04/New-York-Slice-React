@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../component/navbar/Navbar";
+import { FiShoppingCart } from "react-icons/fi";
+import { useSearchParams } from "react-router-dom";
 
 import cheesePizza from "./images/MenuItem/Cheese_Pizza.webp";
 import pepperoniPizza from "./images/MenuItem/Pepperoni_Pizza.webp";
@@ -31,12 +33,21 @@ const products = [
 
 function Order() {
   const [cartOpen, setCartOpen] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [cart, setCart] = useState(() => {
     return JSON.parse(localStorage.getItem("cartList")) || [];
   });
 
   useEffect(() => {
+    if (searchParams.get("cart") === "1") {
+      setCartOpen(true);
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
+
+  useEffect(() => {
     localStorage.setItem("cartList", JSON.stringify(cart));
+    window.dispatchEvent(new Event("cart-updated"));
   }, [cart]);
 
   const addToCart = (id) => {
@@ -82,7 +93,7 @@ function Order() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-[#1A1A1A] pt-[100px]">
+      <main className="min-h-screen bg-[#1A1A1A] pt-[100px] pb-[50px]">
         <div className="mx-auto w-[750px] max-w-[90%]">
           <div className="flex items-center justify-between py-8 text-white">
             <div className="text-3xl font-semibold">
@@ -92,9 +103,9 @@ function Order() {
 
             <button
               onClick={() => setCartOpen(true)}
-              className="relative -translate-y-5 text-3xl text-white"
+              className="relative -translate-y-5 hidden text-3xl text-white lg:block"
             >
-              🛒
+              <FiShoppingCart aria-label="Cart" />
               <span className="absolute left-5 top-1/2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs text-white">
                 {totalQuantity}
               </span>
