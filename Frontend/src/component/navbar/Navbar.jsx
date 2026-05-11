@@ -89,6 +89,12 @@ const Navbar = () => {
           </li>
 
           <li className="w-full">
+            <Link to="/orders" className="text-[2rem] text-[#CCCCCC]" onClick={() => setShowSidebar(false)}>
+              View Orders
+            </Link>
+          </li>
+
+          <li className="w-full">
             <Link to="/contact" className="text-[2rem] text-[#CCCCCC]" onClick={() => setShowSidebar(false)}>
               Contact
             </Link>
@@ -121,6 +127,11 @@ const Navbar = () => {
               <li>
                 <Link to="/order" className="block px-2.5 py-2.5 text-[#CCCCCC] hover:bg-[#555]">
                   Order Now
+                </Link>
+              </li>
+              <li>
+                <Link to="/orders" className="block px-2.5 py-2.5 text-[#CCCCCC] hover:bg-[#555]">
+                  View Orders
                 </Link>
               </li>
             </ul>

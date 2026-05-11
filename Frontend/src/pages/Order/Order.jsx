@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../component/navbar/Navbar";
 import { FiShoppingCart } from "react-icons/fi";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 function Order() {
+  const navigate = useNavigate();
   const [cartOpen, setCartOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [products , setProducts] = useState([]);
@@ -71,10 +72,35 @@ function Order() {
 
   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+
   const totalPrice = cart.reduce((sum, item) => {
     const product = products.find((p) => p.id === item.product_id);
     return sum + (product ? product.price * item.quantity : 0);
   }, 0);
+
+  const handleCheckout = async () => {
+  const items = cart.map((item) => {
+    const product = products.find((p) => p.id === item.product_id);
+    return {
+      product_id: item.product_id,
+      name: product.name,
+      price: product.price,
+      quantity: item.quantity,
+      image: product.image,
+    };
+  });
+
+  const res = await fetch("http://localhost:5000/api/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ items, totalAmount: totalPrice }),
+  });
+
+  if (res.ok) {
+    setCart([]);
+    navigate("/orders");
+  }
+};
 
   return (
     <>
@@ -199,7 +225,9 @@ function Order() {
               CLEAR CART
             </button>
 
-            <button className="col-span-2 border border-[#CCCCCC] hover:bg-[#CCCCCC] hover:text-black">
+            <button 
+              onClick={handleCheckout}
+              className="col-span-2 border border-[#CCCCCC] hover:bg-[#CCCCCC] hover:text-black">
               CHECKOUT
             </button>
           </div>
