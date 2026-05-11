@@ -3,37 +3,10 @@ import Navbar from "../../component/navbar/Navbar";
 import { FiShoppingCart } from "react-icons/fi";
 import { useSearchParams } from "react-router-dom";
 
-import cheesePizza from "./images/MenuItem/Cheese_Pizza.webp";
-import pepperoniPizza from "./images/MenuItem/Pepperoni_Pizza.webp";
-import bbqPizza from "./images/MenuItem/BBQ_Chicken_Pizza.png";
-import soda from "./images/MenuItem/Soda.png";
-import lemonade from "./images/MenuItem/Lemonade.png";
-import iceTea from "./images/MenuItem/Ice_Tea.png";
-import chicken from "./images/MenuItem/Chicken_Sandwich.png";
-import sausage from "./images/MenuItem/Sausage_Sandwich.png";
-import meatball from "./images/MenuItem/Meatball_Sandwich.png";
-import spaghettiMeatballs from "./images/MenuItem/Spaghetti_Meatballs.png";
-import spaghettiParmesen from "./images/MenuItem/Spaghetti_Parmesen.png";
-import spaghettiShrimp from "./images/MenuItem/Spaghetti_Shrimp.png";
-
-const products = [
-  { id: 1, name: "Cheese Pizza", price: 12.5, image: cheesePizza },
-  { id: 2, name: "Pepperoni Pizza", price: 14.5, image: pepperoniPizza },
-  { id: 3, name: "BBQ Chicken Pizza", price: 15.0, image: bbqPizza },
-  { id: 4, name: "Soda", price: 1.5, image: soda },
-  { id: 5, name: "Lemonade", price: 2.75, image: lemonade },
-  { id: 6, name: "Ice Tea", price: 2.75, image: iceTea },
-  { id: 7, name: "Chicken Cutlet", price: 7.75, image: chicken },
-  { id: 8, name: "Sausage Parmigiana", price: 7.5, image: sausage },
-  { id: 9, name: "Meatball Parmigiana", price: 7.5, image: meatball },
-  { id: 10, name: "Spaghetti W/Meatballs", price: 9.25, image: spaghettiMeatballs },
-  { id: 11, name: "Spaghetti W/Parmensen", price: 6.75, image: spaghettiParmesen },
-  { id: 12, name: "Spaghetti W/Shrimp", price: 12.5, image: spaghettiShrimp },
-];
-
 function Order() {
   const [cartOpen, setCartOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [products , setProducts] = useState([]);
   const [cart, setCart] = useState(() => {
     return JSON.parse(localStorage.getItem("cartList")) || [];
   });
@@ -49,6 +22,20 @@ function Order() {
     localStorage.setItem("cartList", JSON.stringify(cart));
     window.dispatchEvent(new Event("cart-updated"));
   }, [cart]);
+
+  useEffect(() => {
+    const fetchProducts = async () =>{
+      try{
+        const response = await fetch("http://localhost:5000/api/products")
+        const data = await response.json()
+        setProducts(data)
+      }
+      catch(err){
+        console.error("Error fetching products:", err)
+      }
+    }
+    fetchProducts()
+  }, [])
 
   const addToCart = (id) => {
     setCart((prev) => {
@@ -86,7 +73,7 @@ function Order() {
 
   const totalPrice = cart.reduce((sum, item) => {
     const product = products.find((p) => p.id === item.product_id);
-    return sum + product.price * item.quantity;
+    return sum + (product ? product.price * item.quantity : 0);
   }, 0);
 
   return (
@@ -119,7 +106,7 @@ function Order() {
                 className="flex flex-col items-center justify-center gap-2 rounded-[20px] bg-[#eeeee6] p-4 text-[#333]"
               >
                 <img
-                  src={product.image}
+                  src={`/MenuItem/${product.image}`}
                   alt={product.name}
                   className="h-auto w-full max-w-[180px] object-contain max-[768px]:max-w-[140px]"
                 />
@@ -153,6 +140,7 @@ function Order() {
           <div className="flex flex-col overflow-auto">
             {cart.map((item) => {
               const product = products.find((p) => p.id === item.product_id);
+              if (!product) return null;
 
               return (
                 <div
@@ -160,7 +148,7 @@ function Order() {
                   className="grid grid-cols-[56px_1fr_auto] items-center gap-3 bg-[#1A1A1A] px-3 py-2 even:bg-white/10 sm:grid-cols-[70px_150px_70px_1fr] sm:gap-2 sm:px-0 sm:py-0 sm:text-center"
                 >
                   <img
-                    src={product.image}
+                    src={`/MenuItem/${product.image}`}
                     alt={product.name}
                     className="h-12 w-12 object-contain sm:h-auto sm:w-full"
                   />
