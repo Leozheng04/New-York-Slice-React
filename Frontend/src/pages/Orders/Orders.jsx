@@ -36,7 +36,7 @@ function Orders() {
   };
 
   const handleUpdate = async (order) => {
-    await fetch(`http://localhost:5000/api/orders/${order._id}`, {
+    await fetch(`https://new-york-slice-react.onrender.com/api/orders/${order._id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
