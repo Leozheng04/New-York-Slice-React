@@ -27,7 +27,7 @@ function Order() {
   useEffect(() => {
     const fetchProducts = async () =>{
       try{
-        const response = await fetch("http://localhost:5000/api/products")
+        const response = await fetch("https://new-york-slice-react.onrender.com/api/products")
         const data = await response.json()
         setProducts(data)
       }
@@ -90,7 +90,7 @@ function Order() {
     };
   });
 
-  const res = await fetch("http://localhost:5000/api/orders", {
+  const res = await fetch("https://new-york-slice-react.onrender.com/api/orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ items, totalAmount: totalPrice }),
