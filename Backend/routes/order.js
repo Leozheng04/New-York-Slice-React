@@ -2,6 +2,25 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/Order");
 
+router.patch("/:id", async (req, res) => {
+  try {
+    const updatedOrder = await Order.findByIdAndUpdate(
+      req.params.id,
+      {
+        items: req.body.items,
+        totalAmount: req.body.totalAmount,
+      },
+      { new: true }
+    );
+
+    res.json(updatedOrder);
+  } catch (err) {
+    res.status(500).json({
+      message: "Failed to update order",
+    });
+  }
+});
+
 router.get("/", async (req, res) => {
 
   try {
