@@ -9,13 +9,13 @@ function Orders() {
   }, []);
 
   const fetchOrders = async () => {
-    const res = await fetch("http://localhost:5000/api/orders");
+    const res = await fetch("https://new-york-slice-react.onrender.com/api/orders");
     const data = await res.json();
     setOrders(data);
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/orders/${id}`, {
+    await fetch(`https://new-york-slice-react.onrender.com/api/orders/${id}`, {
       method: "DELETE",
     });
     fetchOrders();
